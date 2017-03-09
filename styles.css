@@ -1,6 +1,6 @@
 html {
     background-image: url("cat.gif");
-    background-size: cover;
+    background-size: contain;
 
 }
 
