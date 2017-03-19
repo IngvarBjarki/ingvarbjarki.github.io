@@ -117,6 +117,32 @@
                 .attr("transform", "translate(" + padding + ",0)")
                 .call(yAxis);
 
+            svg.append("text")
+            .attr("x", (w/ 2))
+            .attr("y", 25)
+            .attr("text-anchor", "middle")
+            .style("font-size", "22px")
+            .style("text-decoration", "underline")
+            .style("text-decoration", "bold")
+            .text("Crimes 2015 in San Francisco");
+
+             svg.append("text")
+            .attr("x", (w/ 2))
+            .attr("y", h-padding/2)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("text-decoration", "bold")
+            .text("PROSTITUTION");
+
+                svg.append("text")
+                .attr("x", -50)
+                .attr("y", -2)
+                .attr("transform", "translate("+ (padding/2) +","+(h/2)+")rotate(-90)")
+                .style("font-size", "16px")
+                .style("text-decoration", "bold")
+                .text("VEHICLE THEFT");
+
+
             }
 
             d3.select("button")
