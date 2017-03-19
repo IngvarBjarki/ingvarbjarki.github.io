@@ -1,0 +1,46 @@
+body{
+    background-color: rgba(255,255,100,0.15)
+}
+
+
+.axis path,
+            .axis line {
+                fill: none;
+                stroke: black;
+                shape-rendering: crispEdges;
+            }
+
+            .axis text {
+                font-family: sans-serif;
+                font-size: 11px;
+            }
+
+#myButton1 {
+  background: #d93447;
+  background-image: -webkit-linear-gradient(top, #d93447, #b82c90);
+  background-image: -moz-linear-gradient(top, #d93447, #b82c90);
+  background-image: -ms-linear-gradient(top, #d93447, #b82c90);
+  background-image: -o-linear-gradient(top, #d93447, #b82c90);
+  background-image: linear-gradient(to bottom, #d93447, #b82c90);
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  -webkit-box-shadow: 2px 2px 3px #666666;
+  -moz-box-shadow: 2px 2px 3px #666666;
+  box-shadow: 2px 2px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 12px 20px 12px 20px;
+  text-decoration: none;
+}
+
+#myButton1:hover {
+  background: #fc3c3c;
+  background-image: -webkit-linear-gradient(top, #fc3c3c, #34d93f);
+  background-image: -moz-linear-gradient(top, #fc3c3c, #34d93f);
+  background-image: -ms-linear-gradient(top, #fc3c3c, #34d93f);
+  background-image: -o-linear-gradient(top, #fc3c3c, #34d93f);
+  background-image: linear-gradient(to bottom, #fc3c3c, #34d93f);
+  text-decoration: none;
+}
