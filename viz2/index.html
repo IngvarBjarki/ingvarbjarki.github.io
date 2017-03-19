@@ -118,6 +118,7 @@
                 .call(yAxis);
 
             svg.append("text")
+            .attr("class", "dataYear")
             .attr("x", (w/ 2))
             .attr("y", 25)
             .attr("text-anchor", "middle")
@@ -154,10 +155,12 @@
                     if (elem.innerHTML=="Show data 2003!") {
                         elem.innerHTML = "Show data 2015!"
                         showdata = "data_2003.csv"
+                        data_year = "Crimes 2003 in San Francisco"
                     }
                     else {
                         elem.innerHTML = "Show data 2003!"
                         showdata = "data_2015.csv"
+                        data_year = "Crimes 2015 in San Francisco"
                     };
 
                     d3.csv(showdata, function(error, data) {
@@ -210,6 +213,15 @@
                                .attr("font-family", "sans-serif")
                                .attr("font-size", "11px")
                                .attr("fill", "teal");
+
+           svg.select(".dataYear")
+            .attr("x", (w/ 2))
+            .attr("y", 25)
+            .attr("text-anchor", "middle")
+            .style("font-size", "22px")
+            .style("text-decoration", "underline")
+            .style("text-decoration", "bold")
+            .text(data_year);
 
                 }
 
