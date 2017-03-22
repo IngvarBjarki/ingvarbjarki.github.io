@@ -1,3 +1,8 @@
+body
+{
+   background-color: rgba(173, 181, 255, 0.4);
+}
+
 button {
    border-top: 1px solid #9da825;
    background: #65d678;

@@ -44,7 +44,44 @@
                    .enter()
                    .append("path")
                    .attr("d", path)
-                   .style("fill", "rgba(220,220,220,0.9)");
+                   .style("fill", "steelblue");
+
+
+ d3.csv("Copy-of-neighbourhoods.csv", function(error, data) {
+                if(error){
+                        console.log(error);
+                }
+                else{
+                    console.log("neighbours");
+                    console.log(data);
+                    for(var i = 0; i< data.length; i++){
+                         data[i].lat = Number(data[i].lat);
+                         data[i].lon = Number(data[i].lon);
+                    }
+
+                    console.log("here we have data");
+                    console.log(data);
+
+                              svg.selectAll("text")
+                           .data(data)
+                           .enter()
+                           .append("text")
+                           .text(function(d) {
+                                return d.name;
+                           })
+                           .attr("x", function(d) {
+                                return projection([d.lon, d.lat])[0];
+                           })
+                           .attr("y", function(d) {
+                                return projection([d.lon, d.lat])[1];
+                           })
+                           .attr("font-family", "sans-serif")
+                           .attr("font-size", "15px")
+                           .attr("fill", "beige");
+
+                }
+           });
+
 
                    // here we load all our point into the geoplot,
                    //so our map will first show upp then the points
