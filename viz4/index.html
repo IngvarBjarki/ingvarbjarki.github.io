@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <link type="text/css" rel="stylesheet" href="styles.css"/>
+        <script type="text/javascript" src="d3/d3.js"></script>
+    </head>
+    <body>
+        <h1>Woah AMAZING</h1>
+
+             <button type="button"  id = "data_2">K = 2</button>
+             <button type="button" id = "data_3" >K = 3</button>
+             <button type="button"  id = "data_4">K = 4</button>
+             <button type="button" id = "data_5">K = 5</button>
+             <button type="button" id = "data_6">K = 6</button>
+
+        <script type="text/javascript">
+
+// lets start defining all our global variables
+// which we can access in all functions
+
+            var h = 400;
+            var w = 600;
+            var all_centroids = []
+            var all_locations = []
+
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+            var projection = d3.geo.mercator()
+                .center([-122.433701, 37.767683])
+                .scale(125000)
+                .translate([w/ 2, h / 2]);
+
+            var path = d3.geo.path()
+                .projection(projection);
+
+          d3.json("https://raw.githubusercontent.com/suneman/socialdataanalysis2017/master/files/sfpddistricts.geojson", function(json) {
+                svg.selectAll("path")
+                   .data(json.features)
+                   .enter()
+                   .append("path")
+                   .attr("d", path)
+                   .style("fill", "rgba(220,220,220,0.9)");
+
+                   // here we load all our point into the geoplot,
+                   //so our map will first show upp then the points
+                   loadJson()
+
+    });
+
+
+
+     function loadJson(){
+          d3.json("data_2.json", function(json) {
+          console.log("the python data has been loaded");
+          json = JSON.parse(json);
+
+          // lets transfrom the data to the correct format for all the prostitution points
+          var all_locations = []
+          for(var i = 0; i< json.lon.length; i++){
+              all_locations[i] = {
+                                                  "lon": json.lon[i],
+                                                  "lat": json.lat[i],
+                                                  "labels": json.labels[i]
+                                             }
+          };
+
+          // lets transform the data to the correct format for all the centroids
+          for(var i = 0; i<json.centroid_lat.length; i++){
+               console.log("wow");
+               all_centroids[i] = {
+                                                  "lon":json.centroid_lon[i],
+                                                  "lat":json.centroid_lat[i],
+                                                  "labels": i
+                                             }
+          };
+
+          getCentroids(all_centroids);
+          getProstitutionPoints(all_locations);
+            });
+}
+
+            function getProstitutionPoints(all_locations){
+               svg.selectAll("circle")
+               .data(all_locations)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                         return projection([d.lon, d.lat])[0];
+                     })
+                     .attr("cy", function(d) {
+                         return projection([d.lon, d.lat])[1];
+                     })
+                     .attr("r", 2)
+                     .style("fill", function(d){
+                        return getColor(d.labels)
+                     });
+
+
+            }
+
+
+            function getCentroids(centroids){
+               console.log("getting centroids");
+               svg.selectAll("circle")
+               .data(centroids)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                         return projection([d.lon, d.lat])[0];
+                     })
+                     .attr("cy", function(d) {
+                         return projection([d.lon, d.lat])[1];
+                     })
+                     .attr("r", 15)
+                     .attr("class", "centroid")
+                     .style("fill", function(d){
+                         return getColor(d.labels);
+                     })
+                     .style("stroke", "black")
+                     .style("stroke-width", "5")
+
+            }
+
+            function getColor(class_labels){
+                switch(class_labels) {
+                             case 0:
+                                 return "rgba(253,25,153, 0.75)";
+                             case 1:
+                                 return "rgba(153,252,32, 0.75)";
+                              case 2:
+                                   return "rgba(0,230,254, 0.75)";
+                              case 3:
+                                   return "rgba(255,240,1, 0.75)";
+                              case 4:
+                                   return "rgba(161,14,236, 0.75)";
+                              case 5:
+                                   return "rgba(255,165,0,0.75)"
+                             default:
+                                 return "rgba(255,100,255)";
+                         }
+          }
+
+          function getStrokeColor(class_labels){
+               switch(class_labels) {
+                             case 0:
+                                 return "rgba(223,5,133, 1)";
+                             case 1:
+                                 return "rgba(123,222,12, 1)";
+                              case 2:
+                                   return "rgba(0,200,224, 1)";
+                              case 3:
+                                   return "rgba(225,210,0, 1)";
+                              case 4:
+                                   return "rgba(131,0,206, 1)";
+                             default:
+                                 return "rgba(205,100, 1)";
+                         }
+          }
+
+          function updateProstitutionPoints(all_locations){
+               svg.selectAll("circle")
+                         .data(all_locations)
+                         .transition()
+                         .duration(10)
+                         .attr("cx", function(d) {
+                                   return projection([d.lon, d.lat])[0];
+                               })
+                               .attr("cy", function(d) {
+                                   return projection([d.lon, d.lat])[1];
+                               })
+                               .attr("r", 2)
+                               .style("fill", function(d){
+                                  return getColor(d.labels)
+                               });
+
+
+          }
+
+
+
+          d3.selectAll("button")
+               .on("click", function(){
+                    console.log(this.id);
+                    showdata = this.id + ".json";
+
+                    console.log("click!");
+                    d3.json(showdata, function(error, json) {
+                          if(error){
+                                  console.log(error);
+                          }
+                          else{
+
+                              json = JSON.parse(json);
+                              // lets remove the current data
+                              svg.selectAll("circle").remove();
+                              all_centroids = []
+                              all_locations = []
+                              // lets transfrom the data to the correct format for all the prostitution points
+                              for(var i = 0; i< json.lon.length; i++){
+                                  all_locations[i] = {
+                                                                      "lon": json.lon[i],
+                                                                      "lat": json.lat[i],
+                                                                      "labels": json.labels[i]
+                                                                 }
+                              };
+
+                         // lets transform the data to the correct format for all the centroids
+                         for(var i = 0; i<json.centroid_lat.length; i++){
+                              all_centroids[i] = {
+                                                                 "lon":json.centroid_lon[i],
+                                                                 "lat":json.centroid_lat[i],
+                                                                 "labels": i
+                                                            }
+                              };
+
+                         // draw the new data on the map
+                         getCentroids(all_centroids);
+                         getProstitutionPoints(all_locations);
+
+                    }
+          });
+});
+
+
+
+
+
+
+
+
+             </script>
+    </body>
+</html>
