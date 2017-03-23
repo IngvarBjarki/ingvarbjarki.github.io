@@ -46,23 +46,20 @@
                    .attr("d", path)
                    .style("fill", "steelblue");
 
-
+// add text to the geoplot
  d3.csv("Copy-of-neighbourhoods.csv", function(error, data) {
                 if(error){
                         console.log(error);
                 }
                 else{
-                    console.log("neighbours");
-                    console.log(data);
+                    //set data on right format
                     for(var i = 0; i< data.length; i++){
                          data[i].lat = Number(data[i].lat);
                          data[i].lon = Number(data[i].lon);
                     }
 
-                    console.log("here we have data");
-                    console.log(data);
-
-                              svg.selectAll("text")
+                    //here we write the neigbourhood name on the geoplot
+                         svg.selectAll("text")
                            .data(data)
                            .enter()
                            .append("text")
