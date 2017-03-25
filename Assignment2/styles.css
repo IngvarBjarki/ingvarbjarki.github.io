@@ -14,7 +14,7 @@ p{
 }
 #myButton1 {
     vertical-align: bottom;
-    margin-right: 1052px;
+    margin-right: 80%;
     margin-bottom: 20px;
 
 }
@@ -68,5 +68,5 @@ button:hover {
 }
 
 #data_6{
-    margin-right: 750px;
+    margin-right: 60%;
 }
