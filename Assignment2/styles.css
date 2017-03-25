@@ -3,6 +3,7 @@ body{
 }
 h2{
     text-align: -webkit-left;
+    text-align: -moz-center;
 }
 p{
     width: 80%;
