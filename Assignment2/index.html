@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Assignment 2, Social data analysis</title>
+        <link type="text/css" rel="stylesheet" href="styles.css"/>
+        <script type="text/javascript" src="d3/d3.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h2>Assignment 2A: One scatter plot and two datasets</h2>
+            <button type="button" id = "myButton1">Show data 2003!</button>
+            <script src = "jscript_first_part.js"></script>
+        </div>
+            <h4>Description</h4>
+            <p>The graph above shows the number of prostitution
+                instances in San Francisco, plotted against the
+                number of vehicle theft instances in the same city.
+                The points on the graph each represent a district within
+                 the city. The size of the points are proportional to the
+                 number of crimes within the district.
+                 Click the <span style="color:rgb(100,161,159)" ><strong>green</strong></span> button to toggle between the years
+                  2003 and 2015 to see how the crime frequency
+                   changes between these years.</p>
+
+            <h4> Explain in your own words why you think I want the axes to be the same for both years? </h4>
+             <p>If the axes would change depending on the maximum x- and y-values for each of the years, the distance that the points travel when you toggle between years would not be representative of the change in crime frequency. The visualization could then be misleading in terms of represting the change in crime frequency between the two years.</p>
+
+        <div class="wrapper">
+            <h2>Assignment 2B: Visualizing geodata</h2>
+            <button type="button" class = "k_buttons"  id = "data_2">K = 2</button>
+            <button type="button" class = "k_buttons" id = "data_3" >K = 3</button>
+            <button type="button" class = "k_buttons" id = "data_4">K = 4</button>
+            <button type="button" class = "k_buttons" id = "data_5">K = 5</button>
+            <button type="button" class = "k_buttons" id = "data_6">K = 6</button>
+            <script src = "jscript_second_part.js"></script>
+        </div>
+        <h4>Description</h4>
+        <p> The graph above shows k-means clustering for
+         prostitution instances in San Francisco.
+         The points are displayed in different colors
+          depending on what cluster they are assigned to.
+          Select the number means k by clicking on one of the
+           <span style="color:rgb(100,161,159)" ><strong>green</strong></span> buttons. A new graph should load within a
+           second or two.
+        </p>
+
+        <h4>Why is the size of the file important?</h4>
+        <p>the data used to
+            plot the K-means have to include both longitude
+             and latitude cordinates for each of the points on the
+              graph. The points on this graph are somewhat
+              transparent. They form large clusters and are plotted
+               on top of one another so it may be hard to see how
+               many points there actually are on the graph.
+               Every time a new number of K‘s is chosen one
+                of the files needs to be read and processes again.
+                Needless to say, the size of the file will impact the
+                speed of that process. The individual size of all of the
+            datafiles used for the K-means plot are 650 KB.</p>
+    </body>
+</html>
