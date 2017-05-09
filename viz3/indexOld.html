@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <link type="text/css" rel="stylesheet" href="styles.css"/>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    </head>
+    <body>
+        <h1>Visualization 2</h1>
+        <p> On this page we have some bar plots</p>
+        <script type = "text/javascript">
+            var w = 600;
+            var h =  200;
+            var padding = 80;;
+            var barPadding = 2;
+
+
+
+            dataset = []
+            numValues = 25;
+            for (var i = 0; i < numValues; i++) {
+                var newNumber = Math.floor(Math.random() * 25);
+                dataset.push(newNumber);
+            }
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, w], .1);
+
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d + "</span>";
+  })
+
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+    svg.selectAll("rect")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("fill", "rgba(79, 97, 255, 0.5)")
+               .attr("class", "bar")
+               .attr("x", function(d, i) {
+                    return i * (w / dataset.length);
+               })
+               .attr("y", function(d) {
+                    return h - (d * 4);
+               })
+               .attr("width", w / dataset.length - barPadding)
+               .attr("height", function(d) {
+                    return d * 4;
+               })
+               .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + h + ")")
+          .call(xAxis);
+
+            svg.call(tip);
+        </script>
+    </body>
+</html>

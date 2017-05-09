@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <link type="text/css" rel="stylesheet" href="styles.css"/>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    </head>
+    <body>
+        <h1>Visualization 2</h1>
+        <p> On this page we have some bar plots</p>
+
+        <select id="thedropdown">
+  <option value="ASSAULT">ASSAULT</option>
+  <option value="BURGLARY">BURGLARY</option>
+  <option value="DISORDERLY CONDUCT">DISORDERLY CONDUCT</option>
+  <option value="DRIVING UNDER THE INFLUENCE">DRIVING UNDER THE INFLUENCE</option>
+<option value="DRUG_NARCOTIC">DRUG/NARCOTIC</option>
+<option value="DRUNKENNESS">DRUNKENNESS</option>
+<option value="LARCENY_THEFT">LARCENY/THEFT</option>
+<option value="PROSTITUTION">PROSTITUTION</option>
+<option value="ROBBERY">ROBBERY</option>
+<option value="STOLEN PROPERTY">STOLEN PROPERTY</option>
+<option value="TRESPASS">TRESPASS</option>
+<option value="VANDALISM">VANDALISM</option>
+<option value="VEHICLE THEFT">VEHICLE THEFT</option>
+<option value="WEAPON LAWS">WEAPON LAWS</option>
+</select>
+
+
+
+
+        <script type = "text/javascript">
+            var w = 600;
+            var h =  200;
+            var padding = 80;
+            var barPadding = 2;
+
+
+
+            dataset = []
+      d3.csv("ASSAULT.csv", function(error, data) {
+                if(error){
+                        console.log(error);
+                }
+                else{
+                        dataset = data.map(function(d) { return d; });
+                       console.log(dataset)
+                       //since csv files set everything to str, we convert the a proprate to num
+                       for(i=0; i<dataset.length; i++){
+                        dataset[i].numCrimes = Number(dataset[i].numCrimes )
+
+                       }
+                       makeCircles();
+                       makeAxis();
+                }
+
+            });
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, w], .1);
+
+    var y = d3.scale.linear().range([h, 0]);
+
+var yScale;
+var xScale;
+/*
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+*/
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d.numCrimes + "</span>";
+  })
+
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+/*svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + h + ")")
+          .call(xAxis);
+*/
+            svg.call(tip);
+
+function makeCircles(){
+
+yScale = d3.scale.linear()
+                                     .domain([0, d3.max(dataset, function(d) { return d.numCrimes; })])
+                                     .range([padding, h - padding]);
+
+ xScale = d3.scale.linear()
+                                     .domain([0, d3.max(dataset, function(d) { return Number(d.years); })])
+                                     .range([padding/2, w-padding/2]);
+
+
+    svg.selectAll("rect")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("fill", "rgba(79, 97, 255, 0.5)")
+               .attr("class", "bar")
+               .attr("x", function(d,i) {
+                    return  xScale(i * ((w+10*padding) / dataset.length));
+               })
+               .attr("y", function(d) {
+                    return yScale(h-(d.numCrimes ));
+               })
+               .attr("width", w / dataset.length - barPadding)
+               .attr("height", function(d) {
+                    return yScale(d.numCrimes);
+               })
+               .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+
+}
+
+
+
+
+
+
+
+function makeAxis(){
+              //Define X axis
+
+            //Define Y axis
+            var yAxis = d3.svg.axis()
+                              .scale(y)
+                              .orient("left")
+                              .ticks(10);
+
+              var xAxis = d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom");
+                //Create X axis
+
+            svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + (h-padding/2) + ")")
+                .call(xAxis);
+
+              //Create Y axis
+            svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + (padding/4) + ",0)")
+                .call(yAxis);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d3.select("select")
+                .on("click", function(){
+                  var a = document.getElementById("thedropdown");
+                  var showdata = a.value+'.csv';
+                  console.log(showdata);
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  console.log(dropdowns);
+                    d3.csv(showdata, function(error, data) {
+                        if(error){
+                                console.log(error);
+                        }
+                        else{
+                          dataset = data.map(function(d) { return d; });
+                          console.log(dataset)
+                           for(i=0; i<dataset.length; i++){
+                              dataset[i].numCrimes = Number(dataset[i].numCrimes )
+                       }
+                           svg.selectAll("rect")
+                             .data(dataset)
+                              .transition()
+                              .duration(1000)
+                              .ease("bounce")
+                             .attr("x", function(d, i) {
+                                  return i * (w / dataset.length);
+                             })
+                             .attr("y", function(d) {
+                                  return yScale(h-(d.numCrimes ));
+                             })
+                             .attr("width", w / dataset.length - barPadding)
+                             .attr("height", function(d) {
+                                  return yScale(d.numCrimes);
+                             });
+
+                        }
+                      })
+                })
+
+        </script>
+    </body>
+</html>

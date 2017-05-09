@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Final project Social Data Analysis</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
+
+
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!-- Google Webfonts -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Sanchez:400,400italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Theme Style -->
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- For d3 visualizations-->
+	<script type="text/javascript" src="d3/d3.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	</head>
+	<body>
+		<header role="banner" id="fh5co-header" style="background-image: url(images/hero-4.jpg);" data-stellar-background-ratio="0.5">
+			<div class="fh5co-overlay"></div>
+			<div class="container">
+				<div class="fh5co-intro-wrap">
+					<div class="fh5co-intro">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 text-center">
+								<h1 class="fh5co-intro-lead animate-1 to-animate">SOCIAL DATA ANALYSIS</h1>
+								<h2 class="fh5co-intro-sub animate-2 to-animate">Hi! Our names are Andri and Ingvar, and we have carried out an analysis on the SF311 public service requests dataset from the city of San Francisco, focusing on graffiti complaints.</h2>
+								<p class="fh5co-social text-center" id="fh5co-intro-social">
+									<a href="https://www.facebook.com/graffitiwall/" class="to-animate"><i class="icon-facebook-with-circle"></i></a>
+									<a href="https://twitter.com/hashtag/graffiti?lang=da" class="to-animate"><i class="icon-twitter-with-circle"></i></a>
+									<a href="https://dribbble.com/tags/graffiti" class="to-animate"><i class="icon-dribbble-with-circle"></i></a>
+									<a href="https://www.google.dk/search?q=graffiti&source=lnms&tbm=isch&sa=X&sqi=2&ved=0ahUKEwizqPfZ5sLTAhUpCsAKHcEyDBUQ_AUIBigB&biw=1600&bih=768" class="to-animate"><i class="icon-google-with-circle"></i></a>
+									<a href="https://www.instagram.com/explore/tags/graffiti/" class="to-animate"><i class="icon-instagram-with-circle"></i></a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main role="main" id="fh5co-main">
+			<div class="container" id="bio-animate">
+				<div class="row row-padded">
+					<div class="col-md-3">
+						<h2 class="fh5co-section-heading to-animate">About the project<span class="fh5co-border"></span></h2>
+						<p class="to-animate">If you would like to mess around with the data used in this analysis yourself, you can download it  <Strong><a href = "df_updated2.csv">here</a></Strong>  or if you are interested in learning more about all the nitty gritty details of our analysis you can check out our GitHub repository  <Strong><a href = "https://github.com/IngvarBjarki/SocialDataFinalAssignment">here</a></Strong>.More information about the dataset can be found <Strong><a href = "http://support.datasf.org/customer/en/portal/articles/2429403-311-case-data---faq?b_id=13410">here</a></Strong> and to view the data online without downloading the whole thing, click <Strong><a href="https://data.sfgov.org/City-Infrastructure/-Notice-of-Dataset-Change-Case-Data-from-San-Franc/vw6y-z8j6">here.</a></Strong></p>
+					</div>
+					<div class="col-md-8 col-md-push-1">
+						<div class="row">
+							<div class="col-md-6 to-animate">
+								<p>It is a well-known fact that people have different opinions regarding graffiti. Is it an art form or vandalism? It is often painted as a scapegoat for all manner of urban ills, ranging from burglary and violence to gentrification. It can at the same time, done right, add color and brighten up dull and ugly buildings or public spaces. We can however most likely all agree that not all graffiti is created equal. We can’t equate well thought out and structured street art to someone’s illegible tag that can hardly have taken more than a minute to spray. This is the kind of graffiti that devalues properties for both individuals and businesses. Property owners can incur large expenses from the negative images that the graffiti generates and the overall community is affected. You can however help reduce graffiti in your community by recording and reporting it.</p>
+
+
+							</div>
+							<div class="col-md-6 to-animate">
+
+								<p>The city and county of San Francisco established SF311 where residents and businesses can report issues such as vandalism via phone, email, social media or designated mobile applications. All the complaints are gathered in the SFF 311 public service request dataset, updated regularly. This detailed log provides an opportunity to go through all of it, extracting information that would be useful to the municipality to be able to improve its service level. We will use methods ranging from basic statistics to machine learning methods to provide the authorities with useful information to be able to improve the service level. This includes knowing where the vandalism is most likely to take place, how many complaints they can expect at any given time, or what kind of properties are likely to be vandalized.</p>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- END .row -->
+			</div>
+			<!-- END .container -->
+
+
+			<div class="fh5co-section-seperator" style="background-image: url(images/hero-2.jpg);" data-stellar-background-ratio="0.5">
+				<div class="fh5co-overlay"></div>
+				<div class="container" id="counter-animate">
+					<div class="fh5co-section-content-wrap">
+						<div class="fh5co-section-content">
+							<div class="row">
+								<div class="col-md-4 text-center to-animate">
+									<span class="fh5co-counter js-counter" data-from="0" data-to="354217" data-speed="6000" data-refresh-interval="30"></span>
+									<span class="fh5co-counter-label">Total grafiti in San Fransisco</span>
+
+								</div>
+								<div class="col-md-4 text-center to-animate">
+									<span class="fh5co-counter js-counter" data-from="0" data-to="206021" data-speed="6000" data-refresh-interval="30"></span>
+									<span class="fh5co-counter-label">Private property</span>
+								</div>
+								<div class="col-md-4 text-center to-animate">
+									<span class="fh5co-counter js-counter" data-from="0" data-to="148196" data-speed="6000" data-refresh-interval="30"></span>
+									<span class="fh5co-counter-label">Public proberty</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+
+			<div class="container" id="projects-animate">
+				<div class="row row-padded">
+					<div class="col-md-3">
+						<h2 class="fh5co-section-heading to-animate">basic statistics<span class="fh5co-border"></span></h2>
+						<p class="to-animate">The purpose of these graphs is to provide a broad overview of the data. They are all color-coded based on whether they relate to <span style = "color:rgb(251, 105, 74)">public</span> or <span style = "color:rgb(106, 174, 214)">private</span> property requests, or the <span style = "color:rgb(115, 196, 118)">total</span> sum of both. Hover over the graphs to get basic information about them, or click on them to make them bigger and learn more about what’s going on.</p>
+					</div>
+					<div class="col-md-8 col-md-push-1">
+						<div class="row">
+
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/a1.png" class="image-popup">
+									<div class="fh5co-overlay-text">Time Series</div>
+									<div class="fh5co-overlay-textAvg">Average 1131.20 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 585.42</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/a1.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/a2.png" class="image-popup">
+									<div class="fh5co-overlay-text">Time Series</div>
+									<div class="fh5co-overlay-textAvg">Average 469.40  </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 235.0</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/a2.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/a3.png" class="image-popup">
+									<div class="fh5co-overlay-text">Time Series</div>
+									<div class="fh5co-overlay-textAvg">Average 661.80 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 382.10</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/a3.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+
+
+
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/b1.png" class="image-popup">
+									<div class="fh5co-overlay-text">Resolve Time</div>
+									<div class="fh5co-overlay-textAvg">Average 675.95 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 48.19</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/b1.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/b2.png" class="image-popup">
+									<div class="fh5co-overlay-text">Resolve Time</div>
+									<div class="fh5co-overlay-textAvg">Average 482.35  </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 61.60</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/b2.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/b3.png" class="image-popup">
+									<div class="fh5co-overlay-text">Resolve Time</div>
+									<div class="fh5co-overlay-textAvg">Average 946.30 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 61.52</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/b3.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/c1.png" class="image-popup">
+									<div class="fh5co-overlay-text">Correlation</div>
+									<div class="fh5co-overlay-textAvg">Max 0.77 </div>
+									<div class="fh5co-overlay-textVar">Min -0.16</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/c1.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/c2.png" class="image-popup">
+									<div class="fh5co-overlay-text">Correlation</div>
+									<div class="fh5co-overlay-textAvg">Max 0.93  </div>
+									<div class="fh5co-overlay-textVar">Min -0.23</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/c2.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/c3.png" class="image-popup">
+									<div class="fh5co-overlay-text">Correlation</div>
+									<div class="fh5co-overlay-textAvg">Max 0.80 </div>
+									<div class="fh5co-overlay-textVar">Min -0.12</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/c3.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+
+
+
+
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/d1.png" class="image-popup">
+									<div class="fh5co-overlay-text">Unresolved Ratio</div>
+									<div class="fh5co-overlay-textAvg">Average 0.35 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 0.27</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/d1.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/d2.png" class="image-popup">
+									<div class="fh5co-overlay-text">Unresolved Ratio</div>
+									<div class="fh5co-overlay-textAvg">Average 0.36  </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 0.33</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/d2.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/d3.png" class="image-popup">
+									<div class="fh5co-overlay-text">Unresolved Ratio</div>
+									<div class="fh5co-overlay-textAvg">Average 0.29 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 0.26</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/d3.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+
+
+
+
+					<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/e1.png" class="image-popup">
+									<div class="fh5co-overlay-text">No. cases</div>
+									<div class="fh5co-overlay-textAvg">Average 34904.90 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 19150.78</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/e1.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/e2.png" class="image-popup">
+									<div class="fh5co-overlay-text">No. cases</div>
+									<div class="fh5co-overlay-textAvg">Average 20477.70 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 11820.12</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/e2.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 fh5co-project to-animate">
+								<a href="images/e3.png" class="image-popup">
+									<div class="fh5co-overlay-text">No. cases</div>
+									<div class="fh5co-overlay-textAvg">Average 14427.20 </div>
+									<div class="fh5co-overlay-textVar">Standard Deviation 9163.57</div>
+									<div class="fh5co-overlay"></div>
+									<img src="images/e3.png" alt="Free HTML5 Template" class="img-responsive">
+								</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- END .row -->
+			</div>
+			<!-- END .container -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="fh5co-section-seperator" id="testimony-animate" style="background-image: url(images/hero-3.jpg);" data-stellar-background-ratio="0.5">
+				<div class="fh5co-overlay"></div>
+				<div class="container">
+					<div class="fh5co-section-content-wrap">
+						<div class="fh5co-section-content">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-1 fh5co-testimony to-animate">
+									<blockquote>
+										<p class="text-center quote">&ldquo;By visualizing information, we turn it into a landscape that you can explore with your eyes, a sort of information map. And when you’re lost in information, an information map is kind of <em>useful</em>. &rdquo; <cite class="author">&mdash; David McCandless</cite></p>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+
+
+
+
+
+<div class="container" id="projects-animate">
+				<div class="row row-padded">
+					<div class="col-md-3">
+						<h2 class="fh5co-section-heading to-animate">Complaints per hour<span class="fh5co-border"></span></h2>
+						<p class="to-animate">The barplot shows the total number of graffiti complaints per hour. Use the buttons to toggle between districts, and private, public and total complaints. </p>
+					</div>
+					<div class="col-md-8 col-md-push-1">
+						<div class="row">
+
+						<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12" id = "bar" height = "120px" width = "300" >
+
+						<div class="row ">
+							<button class = "btn btn-md bar_button toBottomPriv" id = "Graffiti Private Property"> Private Property</button>
+							<button class = "btn btn-md bar_button toBottomPub" id = "Graffiti Public Property"> Public Property</button>
+							<button class = "btn btn-md bar_button toBottomAll" id = "both"> Public and Private Property</button>
+
+
+							  <select  class= "select-style toBottom barSelect" id="thedropdown">
+							    <option id = "BAYVIEW" >BAYVIEW</option>
+							    <option id="CENTRAL">CENTRAL</option>
+							    <option id="INGLESIDE">INGLESIDE</option>
+							    <option id = "MISSION" selected="true" >MISSION</option>
+							    <option id="NORTHERN">NORTHERN</option>
+							    <option id="PARK">PARK</option>
+							    <option id="RICHMOND">RICHMOND</option>
+							     <option id = "SOUTHERN" >SOUTHERN</option>
+							    <option id="TARAVAL">TARAVAL</option>
+							    <option id="TENDERLOIN">TENDERLOIN</option>
+							</select>
+							<script src = "barplot.js"></script>
+					</div>
+				</div>
+
+
+						</div>
+					</div>
+				</div>
+				<!-- END .row -->
+			</div>
+			<!-- END .container -->
+
+
+
+
+
+
+<div class="fh5co-section-seperator" id="testimony-animate" style="background-image: url(images/hero-3.jpg);" data-stellar-background-ratio="0.5">
+				<div class="fh5co-overlay"></div>
+				<div class="container">
+					<div class="fh5co-section-content-wrap">
+						<div class="fh5co-section-content">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-1 fh5co-testimony to-animate">
+									<blockquote>
+										<p class="text-center quote">&ldquo;People worry that computers will get too  <em>smart</em> and take over the world, but the real problem is that they're too <em>stupid</em> and they've already taken over the world. &rdquo; <cite class="author">&mdash; Pedro Domingos</cite></p>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+
+
+
+<div class="container" id="projects-animate">
+				<div class="row row-padded">
+					<div class="col-md-3">
+						<h2 class="fh5co-section-heading to-animate">The Map<span class="fh5co-border"></span></h2>
+						<p class="to-animate">Here we have used the machine learning method KNN and K-means which you can toggle between with the drop-down menu. Also, hover over the different districts to see basic information about each and every one of them. After the KNN model is run, predictions are added to these little windows.
+The KNN predicts whether new complaints are classified as public or private. It also predicts in what district the complaint will relate to. Click on the buttons to decide how many neighbors you want the algorithm to use for the predictions. The algorithm makes a lot of those predictions and then each district is colored based on how many theoretical public vs private property complaints are filed. More <span style="color:blue">blue</span> represents a higher ratio of private property complaints and more <span style="color:red">red</span> means more public complaints.
+K-means divides the complaints into K-many clusters, and creates equally many centroids, one for each cluster. The algorithm wants to place the centroids far away from one another, but at the same time minimize the distance to the data points that belong to their clusters. Click the buttons on the graph to choose how many K’s you want to use. The small dots that appear on the graph represent each represent a complaint in from the dataset and are plotted on this graph based on their latitudinal and longitudinal coordinates. They are colored based on the cluster that they are assigned to. The centroid they belong to is the big dot that is the same color.
+</p>
+					</div>
+					<div class="col-md-8 col-md-push-1">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12" id = "geo" height = "120px" width = "300">
+							<button class = "btn btn-md geoButton geoB1" id = "original"> Original</button>
+							<button class = "btn btn-md geoButton geoB2" id = "2"> K = 2</button>
+							<button class = "btn btn-md geoButton geoB3" id = "3"> K = 3</button>
+							<button class = "btn btn-md geoButton geoB4" id = "5"> K = 5</button>
+							<button class = "btn btn-md geoButton geoB5" id = "7"> K = 7</button>
+							<button class = "btn btn-md geoButton geoB6" id = "9"> K = 9</button>
+
+							<select  class= "select-style modelSelect geoSelect" id="geoSel">
+							    <option id="knn">K nearest neighbours</option>
+							    <option id = "kmeans" >K means</option>
+							</select>
+
+							<script src = "geoplot2.js"></script>
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+				<!-- END .row -->
+			</div>
+			<!-- END .container -->
+
+
+
+<div class="container" id="projects-animate">
+				<div class="row row-padded">
+					<div class="col-md-4">
+						<h2 class="fh5co-section-heading to-animate">Multiple Linear Regression<span class="fh5co-border"></span></h2>
+						<p class="to-animate">A multiple linear regression model was used to predict the number of graffiti complaints in each week. The input into the model, what it uses to make the predictions are the number of complaints per week that belong to other categories than graffiti, and the total number of complaints by districts per week. It was compared to a naïve model that just always guesses the weekly average and uses that as a prediction.  The simplest version of the linear regression model, which was in fact still a simple linear regression model, performs approximately four times as well as the naïve model based on squared error. Take that naïve model! The simple linear regression model used the number of blocked street or sidewalk complaints to predict and was 48.1% accurate. Adding street and sidewalk cleaning gives 65.7% accuracy, and adding noise reports makes it 71.6% accurate. Adding total number of complaints from the Mission district improves accuracy to 77.4%, the district Northern (80.3%) and finally adding the district Park reduced the accuracy slightly (79.4%). Let's try making a prediction using the model that was developed. Say we have 80 blocked sidewalk complaints, 3000 street and sidewalk cleaning complaints, 50 noise complaints, 1500 complaints from the Mission district, 700 from the Northern district, and 500 from Park this week. According to the linear regression model we can then expect the number of graffiti complaints for this week to be 1267.
+</p>
+					</div>
+
+				<div class="col-md-4">
+						<h2 class="fh5co-section-heading to-animate">Decision Tree<span class="fh5co-border"></span></h2>
+						<p class="to-animate">A decision tree was used to classify complaints as either public or private property complaints. The input into the model was the hour the complaint is filed, from which district it is filed, as well as the latitudinal and longitudinal coordinates associated with the complaint. To test if how well it performs we created a naïve model that simply always guesses the most common complaint type, which turns out to be 59.7% accurate. The simplest decision tree we created outperforms the naïve model, which is good news. Using only the police district from which the complaints were filed results in a 62.1% accurate model. Adding the hour when the complaints are file results in 62.5% accuracy, and adding latitudinal coordinates makes it 76.5% accurate, and longitudinal coordinates 79.3% accurate. Now for some action! Let’s start predicting with the model. We tell the model that the complaint comes from the Mission district at 3am and has the coordinates (37.764644, -122.426927). Model says: Graffiti private property!
+</p>
+					</div>
+
+<div class="col-md-4">
+						<h2 class="fh5co-section-heading to-animate">Regression tree<span class="fh5co-border"></span></h2>
+						<p class="to-animate">A regression tree was used to predict the time it takes to solve a given case based on the same input that was used in the decision tree model: the hour the complaint is filed, the district it is filed, latitude and longitude. Again, always guessing the mean value is used as a naive benchmark model to evaluate the performance. The simplest form of the regression tree performs about ten times better than the naive model based on squared error. Now let’s use the model to predict the time it takes to solve some specific case. Let’s put the district Mission into the model, complaint time 5pm, let’s say it relates to public property and has the coordinates (37.764641, -122.426929). This would result in a resolve time of 36,098 seconds, or about 10 hours.
+
+</p>
+					</div>
+
+
+					</div>
+				</div>
+				<!-- END .row -->
+			</div>
+			<!-- END .container -->
+
+
+
+
+
+
+			<div class="fh5co-section-seperator" id="testimony-animate" style="background-image: url(images/hero-3.jpg);" data-stellar-background-ratio="0.5">
+				<div class="fh5co-overlay"></div>
+				<div class="container">
+					<div class="fh5co-section-content-wrap">
+						<div class="fh5co-section-content">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-1 fh5co-testimony to-animate">
+									<blockquote>
+										<p class="text-center quote">&ldquo;Some people become cops because they want to make the world a <em>better</em> place. Some people become vandals because they want to make the world a <em>better</em> looking place. &rdquo; <cite class="author">&mdash;  Banksy</cite></p>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+
+			<div class="container" id="projects-animate">
+				<div class="row row-padded">
+					<div class="col-md-3">
+						<h2 class="fh5co-section-heading to-animate">Graffiti in San Fransisco<span class="fh5co-border"></span></h2>
+						<p class="to-animate">Here are a few examples of beautiful graffiti in San Fransisco.  By clicking on the images you will be directed to the Google Maps coordinates of the image. Now you can find these locations and visit them in real life.</p>
+					</div>
+					<div class="col-md-8 col-md-push-1">
+
+						<div class = "row">
+			<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps/place/609+Ashbury+St,+San+Francisco,+CA+94117/@37.7697983,-122.4493267,17z/data=!4m15!1m9!4m8!1m3!2m2!1d-122.4469663!2d37.7699509!1m3!2m2!1d-122.4469748!2d37.7698857!3m4!1s0x8085875334360ee3:0x485578d32e4f87f8!8m2!3d37.7697983!4d-122.447138!6m1!1e1"><div id = "g1"></div></a>
+			</div>
+
+			<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps/place/Precita+Eyes+Muralists/@37.7525654,-122.413729,17z/data=!3m1!4b1!4m12!1m6!3m5!1s0x0:0xca37e30a9ce03726!2sPrecita+Eyes+Muralists!8m2!3d37.7525654!4d-122.4115403!3m4!1s0x0:0xca37e30a9ce03726!8m2!3d37.7525654!4d-122.4115403!6m1!1e1"><div id = "g2"></div></a>
+			</div>
+
+			<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps/dir//37.759197,-122.421126/@37.7571129,-122.4328492,14.58z"><div id = "g3"></div></a>
+			</div>
+
+
+		<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps/place/37%C2%B044'03.6%22N+122%C2%B023'26.8%22W/@37.7343435,-122.392962,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d37.7343435!4d-122.3907733"><div id = "g4"></div></a>
+			</div>
+
+			<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps/place/37%C2%B046'31.4%22N+122%C2%B028'35.4%22W/@37.7753739,-122.4774179,18.23z/data=!4m5!3m4!1s0x0:0x0!8m2!3d37.7753874!4d-122.4764852"><div id = "g5"></div></a>
+			</div>
+
+			<div class="col-md-4 col-sm-4 col-xs-4 col-xxs-12 ">
+				<a href ="https://www.google.com/maps?q=37.7263865,-122.4337984"><div id = "g6"></div></a>
+			</div>
+
+		</div>
+
+
+
+
+					</div>
+			</div>
+			</div>
+
+
+
+
+
+
+			<div class="fh5co-section-seperator fh5co-section-seperator-white" id="contact-animate" style="background-image: url(images/hero-4.jpg);" data-stellar-background-ratio="0.5">
+				<div class="fh5co-overlay"></div>
+				<div class="container">
+					<div class="fh5co-section-content-wrap">
+						<div class="fh5co-section-content">
+							<div class="row">
+
+								<div class="col-md-8 col-md-push-1">
+									<div class="row">
+										<div class="col-md-6">
+											<label style="color: #fff">Social Data Analysis - (02806)</label>
+											<label style="color: #fff">Technical University of Denmark </label>
+											<label style="color: #fff">Mathmatical Modeling and Computation</label>
+											<label style="color: #fff">Anker Engelunds Vej  Bygning 101A 2800Kgs. Lyngby </label>
+											<label style="color: #fff"> CVR-nr. 30 06 09 46 </label>
+										</div>
+										<div class="col-md-6">
+											<div class="row">
+											<label style="color: #fff">Authors:</label>
+											</div>
+											<div class="row">
+											<label style="color: #fff">Andri Freyr Þórðarson - s160967</label>
+											</div>
+											<div class="row">
+											<label  style="color: #fff">Ingvar Bjarki Einarsson - s161294</label>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+
+		</main>
+
+		<footer role="contentinfo" id="fh5co-footer">
+			<div class="container" id="footer-animate">
+				<div class="row row-padded">
+					<div class="col-md-8 col-md-push-4">
+						<p class="to-animate">&copy; 2015 Free Verge. All Rights Reserved. Designed: <a href="http://freehtml5.co" target="_blank">FREEHTML5.co</a></p>
+						<p class="to-animate">Images: <a href="http://unsplash.com" target="_blank">Unsplash</a> &amp; <a href="http://plmd.me" target="_blank">plmd.me</a></p>
+					</div>
+				</div>
+			</div>
+			<!-- END .container -->
+		</footer>
+
+
+
+
+
+
+
+
+
+
+		<!-- jQuery -->
+		<script src="js/jquery.min.js"></script>
+		<!-- jQuery Easing -->
+		<script src="js/jquery.easing.1.3.js"></script>
+		<!-- Bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Waypoints -->
+		<script src="js/jquery.waypoints.min.js"></script>
+		<!-- Stellar -->
+		<script src="js/jquery.stellar.min.js"></script>
+		<!-- countTo -->
+		<script src="js/jquery.countTo.js"></script>
+		<!-- Magnific Popup -->
+		<script src="js/jquery.magnific-popup.min.js"></script>
+		<!-- Main JS -->
+		<script src="js/main.js"></script>
+
+
+
+	</body>
+</html>
